@@ -2,10 +2,10 @@
 /* eslint-disable max-len */
 /* eslint-disable import/newline-after-import */
 const { nanoid } = require('nanoid');
-const books = require('./books');
+const databooks = require('./databooks');
 
 const getAllBook = ((req, h) => {
-  const Books = books.map((book) => ({
+  const books = databooks.map((book) => ({
     id: book.id,
     name: book.name,
     publisher: book.publisher,
@@ -13,7 +13,7 @@ const getAllBook = ((req, h) => {
   return h.response({
     status: 'success',
     data: {
-      Books,
+      books,
     },
   });
 });
@@ -55,8 +55,8 @@ const addBook = ((req, h) => {
   const addBK = {
     id, name, year, author, summary, publisher, pageCount, readPage, finished, reading, insertedAt, updatedAt,
   };
-  books.push(addBK);
-  const isSuccess = books.filter((d) => d.id === id).length > 0;
+  databooks.push(addBK);
+  const isSuccess = databooks.filter((d) => d.id === id).length > 0;
   if (isSuccess) {
     return h.response({
       status: 'success',
@@ -74,7 +74,7 @@ const addBook = ((req, h) => {
 
 const getBookById = ((req, h) => {
   const { id } = req.params;
-  const book = books.filter((d) => d.id === id)[0];
+  const book = databooks.filter((d) => d.id === id)[0];
   if (book !== undefined) {
     return h.response({
       status: 'success',
@@ -121,10 +121,10 @@ const editBookById = ((req, h) => {
       message: 'pageCount atau readPage harus angka!',
     }).code(400);
   }
-  const index = books.findIndex((d) => d.id === id);
+  const index = databooks.findIndex((d) => d.id === id);
   if (index !== -1) {
-    books[index] = {
-      ...books[index], name, year, author, summary, publisher, pageCount, readPage, finished, reading, updatedAt,
+    databooks[index] = {
+      ...databooks[index], name, year, author, summary, publisher, pageCount, readPage, finished, reading, updatedAt,
     };
     return h.response({
       status: 'success',
@@ -139,9 +139,9 @@ const editBookById = ((req, h) => {
 
 const deleteBookById = ((req, h) => {
   const { id } = req.params;
-  const index = books.findIndex((d) => d.id === id);
+  const index = databooks.findIndex((d) => d.id === id);
   if (index !== -1) {
-    books.splice(index, 1);
+    databooks.splice(index, 1);
     return h.response({
       status: 'success',
       message: 'Buku berhasil dihapus',
