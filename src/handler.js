@@ -1,5 +1,20 @@
 /* eslint-disable linebreak-style */
 /* eslint-disable import/newline-after-import */
+
+/*
+    "id": "Qbax5Oy7L8WKf74l",
+    "name": "Buku A",
+    "year": 2010,
+    "author": "John Doe",
+    "summary": "Lorem ipsum dolor sit amet",
+    "publisher": "Dicoding Indonesia",
+    "pageCount": 100,
+    "readPage": 25,
+    "finished": false,
+    "reading": false,
+    "insertedAt": "2021-03-04T09:11:44.598Z",
+    "updatedAt": "2021-03-04T09:11:44.598Z"
+*/
 const { nanoid } = require('nanoid');
 const databook = require('./databook');
 const getAllBook = ((req, h) => h.response({
@@ -11,13 +26,34 @@ const getAllBook = ((req, h) => h.response({
 
 const addBook = ((req, h) => {
   const {
-    judul, penulisBuku, penerbitBuku, tahunTerbit,
+    name, year, author, summary, publisher, pageCount, readPage,
   } = req.payload;
-  const createdAt = new Date().toISOString();
-  const updatedAt = createdAt;
+  const insertedAt = new Date().toISOString();
+  const updatedAt = insertedAt;
   const id = nanoid(5);
+
+  let finished = false;
+  let reading = false;
+
+  if (pageCount === readPage) {
+    finished = true;
+  } else if (readPage > pageCount) {
+    return h.response({
+      status: 'fail',
+      message: 'Gagal menambahkan buku. readPage tidak boleh lebih besar dari pageCount',
+    }).code(400);
+  } else if (readPage > '0') {
+    reading = true;
+  }
+
+  if (name === '') {
+    return h.response({
+      status: 'fail',
+      message: 'Gagal menambahkan buku. Mohon isi nama buku',
+    }).code(400);
+  }
   const addBK = {
-    id, judul, penulisBuku, penerbitBuku, tahunTerbit, createdAt, updatedAt,
+    id, name, year, author, summary, publisher, pageCount, readPage, finished, reading, insertedAt, updatedAt,
   };
   databook.push(addBK);
   const isSuccess = databook.filter((d) => d.id === id).length > 0;
@@ -56,13 +92,13 @@ const getBookById = ((req, h) => {
 const editBookById = ((req, h) => {
   const { id } = req.params;
   const {
-    judul, penulisBuku, penerbitBuku, tahunTerbit,
+    name, year, author, summary,
   } = req.payload;
   const updatedAt = new Date().toISOString();
   const index = databook.findIndex((d) => d.id === id);
   if (index !== -1) {
     databook[index] = {
-      ...databook[index], judul, penulisBuku, penerbitBuku, tahunTerbit, updatedAt,
+      ...databook[index], name, year, author, summary, updatedAt,
     };
     return h.response({
       status: 'success',

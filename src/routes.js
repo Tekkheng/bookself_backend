@@ -1,30 +1,32 @@
 /* eslint-disable linebreak-style */
-const { getAllBook, addBook, getBookById, editBookById, deleteBookById } = require('./handler');
+const {
+  getAllBook, addBook, getBookById, editBookById, deleteBookById,
+} = require('./handler');
 
 const routes = [
   {
     method: 'GET',
-    path: '/book',
+    path: '/books',
     handler: getAllBook,
   },
   {
     method: 'POST',
-    path: '/book',
+    path: '/books',
     handler: addBook,
   },
   {
     method: 'GET',
-    path: '/book/{id}',
+    path: '/books/{id}',
     handler: getBookById,
   },
   {
     method: 'PUT',
-    path: '/book/{id}',
+    path: '/books/{id}',
     handler: editBookById,
   },
   {
     method: 'DELETE',
-    path: '/book/{id}',
+    path: '/books/{id}',
     handler: deleteBookById,
   },
 ];
