@@ -11,11 +11,17 @@ const databook = require('./databook');
 // }).code(200));
 
 const getAllBook = ((req, h) => {
-  const books = databook.map((d) => [d.id, d.name, d.publisher]);
-  return h.response({
-    data: {
-      books,
-    },
+  databook.forEach((d) => {
+    const books = {
+      id: d.id,
+      name: d.name,
+      publisher: d.publisher,
+    };
+    return h.response({
+      data: {
+        books,
+      },
+    });
   });
 });
 
