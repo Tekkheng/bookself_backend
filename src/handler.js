@@ -2,7 +2,7 @@
 /* eslint-disable max-len */
 /* eslint-disable import/newline-after-import */
 const { nanoid } = require('nanoid');
-let databook = require('./databook');
+const databook = require('./databook');
 // const getAllBook = ((req, h) => h.response({
 //   status: 'success',
 //   data: {
@@ -16,18 +16,22 @@ let databook = require('./databook');
 //     books,
 //   },
 // }));
+
+let books = [];
 const getAllBook = ((req, h) => {
   databook.forEach((d) => {
-    databook = {
-      id: d.id,
-      name: d.name,
-      publisher: d.publisher,
-    };
+    books = [
+      {
+        id: d.id,
+        name: d.name,
+        publisher: d.publisher,
+      },
+    ];
   });
   h.response({
     status: 'success',
     data: {
-      databook,
+      books,
     },
   });
 });
