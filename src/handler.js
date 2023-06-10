@@ -5,11 +5,11 @@ const { nanoid } = require('nanoid');
 const databook = require('./databook');
 
 const getAllBook = ((req, h) => {
-  const books = databook.filter((d) => (d.id, d.name, d.publisher));
+  const books = databook.filter((d) => (d.id, d.name, d.publisher))[0];
   return h.response({
     status: 'success',
     data: {
-      d.id,d.name,d.publisher,
+      books,
     },
   }).code(200);
 });
