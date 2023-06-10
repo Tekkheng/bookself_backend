@@ -21,7 +21,7 @@ const addBook = ((req, h) => {
   let finished = false;
   let reading = false;
 
-  if (typeof (pageCount) || typeof (readPage) === 'string') {
+  if (typeof (pageCount) || typeof (readPage) == 'string') {
     return h.response({
       status: 'fail',
       message: 'pageCount atau readPage harus angka!',
