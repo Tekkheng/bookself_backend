@@ -1,20 +1,6 @@
 /* eslint-disable linebreak-style */
+/* eslint-disable max-len */
 /* eslint-disable import/newline-after-import */
-
-/*
-    "id": "Qbax5Oy7L8WKf74l",
-    "name": "Buku A",
-    "year": 2010,
-    "author": "John Doe",
-    "summary": "Lorem ipsum dolor sit amet",
-    "publisher": "Dicoding Indonesia",
-    "pageCount": 100,
-    "readPage": 25,
-    "finished": false,
-    "reading": false,
-    "insertedAt": "2021-03-04T09:11:44.598Z",
-    "updatedAt": "2021-03-04T09:11:44.598Z"
-*/
 const { nanoid } = require('nanoid');
 const databook = require('./databook');
 const getAllBook = ((req, h) => h.response({
@@ -22,7 +8,7 @@ const getAllBook = ((req, h) => h.response({
   data: {
     databook,
   },
-}));
+}).code(200));
 
 const addBook = ((req, h) => {
   const {
@@ -64,7 +50,7 @@ const addBook = ((req, h) => {
       data: {
         bookId: id,
       },
-    }).code(200);
+    }).code(201);
   }
   return h.response({
     status: 'failed',
@@ -92,13 +78,32 @@ const getBookById = ((req, h) => {
 const editBookById = ((req, h) => {
   const { id } = req.params;
   const {
-    name, year, author, summary,
+    name, year, author, summary, publisher, pageCount, readPage,
   } = req.payload;
   const updatedAt = new Date().toISOString();
+  let finished = false;
+  let reading = false;
+
+  if (name === '') {
+    return h.response({
+      status: 'fail',
+      message: 'Gagal edit buku. Mohon isi nama buku',
+    }).code(400);
+  }
+  if (pageCount === readPage) {
+    finished = true;
+  } else if (readPage > pageCount) {
+    return h.response({
+      status: 'fail',
+      message: 'Gagal edit buku. Mohon isi nama buku',
+    }).code(400);
+  } else if (readPage > 0) {
+    reading = true;
+  }
   const index = databook.findIndex((d) => d.id === id);
   if (index !== -1) {
     databook[index] = {
-      ...databook[index], name, year, author, summary, updatedAt,
+      ...databook[index], name, year, author, summary, publisher, pageCount, readPage, finished, reading, updatedAt,
     };
     return h.response({
       status: 'success',
