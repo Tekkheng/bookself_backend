@@ -2,14 +2,21 @@
 /* eslint-disable max-len */
 /* eslint-disable import/newline-after-import */
 const { nanoid } = require('nanoid');
-const databook = require('./databook');
+const books = require('./books');
 
-const getAllBook = ((req, h) => h.response({
-  status: 'success',
-  data: {
-    databook,
-  },
-}));
+const getAllBook = ((req, h) => {
+  const filterBooks = books.map((book) => ({
+    id: book.id,
+    name: book.name,
+    publisher: book.publisher,
+  }));
+  return h.response({
+    status: 'success',
+    data: {
+      filterBooks,
+    },
+  });
+});
 
 const addBook = ((req, h) => {
   const {
@@ -48,8 +55,8 @@ const addBook = ((req, h) => {
   const addBK = {
     id, name, year, author, summary, publisher, pageCount, readPage, finished, reading, insertedAt, updatedAt,
   };
-  databook.push(addBK);
-  const isSuccess = databook.filter((d) => d.id === id).length > 0;
+  books.push(addBK);
+  const isSuccess = books.filter((d) => d.id === id).length > 0;
   if (isSuccess) {
     return h.response({
       status: 'success',
@@ -67,7 +74,7 @@ const addBook = ((req, h) => {
 
 const getBookById = ((req, h) => {
   const { id } = req.params;
-  const book = databook.filter((d) => d.id === id)[0];
+  const book = books.filter((d) => d.id === id)[0];
   if (book !== undefined) {
     return h.response({
       status: 'success',
@@ -114,10 +121,10 @@ const editBookById = ((req, h) => {
       message: 'pageCount atau readPage harus angka!',
     }).code(400);
   }
-  const index = databook.findIndex((d) => d.id === id);
+  const index = books.findIndex((d) => d.id === id);
   if (index !== -1) {
-    databook[index] = {
-      ...databook[index], name, year, author, summary, publisher, pageCount, readPage, finished, reading, updatedAt,
+    books[index] = {
+      ...books[index], name, year, author, summary, publisher, pageCount, readPage, finished, reading, updatedAt,
     };
     return h.response({
       status: 'success',
@@ -132,9 +139,9 @@ const editBookById = ((req, h) => {
 
 const deleteBookById = ((req, h) => {
   const { id } = req.params;
-  const index = databook.findIndex((d) => d.id === id);
+  const index = books.findIndex((d) => d.id === id);
   if (index !== -1) {
-    databook.splice(index, 1);
+    books.splice(index, 1);
     return h.response({
       status: 'success',
       message: 'Buku berhasil dihapus',
