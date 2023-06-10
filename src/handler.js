@@ -15,7 +15,7 @@ const getAllBook = ((req, h) => {
   const readingBook = databooks.filter((book) => book.reading === true);
   const nameBook = books.filter((book) => book.name === name);
 
-  if (finished === 0) {
+  if (finished === '0') {
     return h.response({
       status: 'success',
       data: {
