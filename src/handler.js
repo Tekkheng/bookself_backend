@@ -63,7 +63,7 @@ const getAllBook = ((req, h) => {
       },
     });
   }
-  if (name === 'yes') {
+  if (name === 'y') {
     const nameBook = databooks.filter((book) => book.name === name);
     const books = nameBook.map((book) => ({
       id: book.id,
