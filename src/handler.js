@@ -13,6 +13,7 @@ const getAllBook = ((req, h) => {
   }));
   const finishedBook = databooks.filter((book) => book.finished === true);
   const readingBook = databooks.filter((book) => book.reading === true);
+  const nameBook = books.filter((book) => book.name === name);
 
   if (finished === 0) {
     return h.response({
@@ -26,6 +27,13 @@ const getAllBook = ((req, h) => {
       status: 'success',
       data: {
         readingBook,
+      },
+    });
+  } if (name) {
+    return h.response({
+      status: 'success',
+      data: {
+        nameBook,
       },
     });
   }
