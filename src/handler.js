@@ -45,7 +45,7 @@ const addBook = ((req, h) => {
     }).code(400);
   }
   const addBK = {
-    id, name, year, author, summary, publisher, pageCount, readPage, finished, reading, insertedAt, updatedAt,
+    id, name, year, author, summary, publisher, pageCount, readPage, finished, reading, insertedAt, updatedAt,typeof(pageCount),
   };
   databook.push(addBK);
   const isSuccess = databook.filter((d) => d.id === id).length > 0;
