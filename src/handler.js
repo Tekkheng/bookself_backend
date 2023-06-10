@@ -38,18 +38,17 @@ const addBook = ((req, h) => {
   if (typeof (pageCount) === 'number' && typeof (readPage) === 'number' && typeof (year) === 'number') {
     if (pageCount === readPage) {
       finished = true;
+      reading = true;
     } else if (readPage > pageCount) {
       return h.response({
         status: 'fail',
         message: 'Gagal menambahkan buku. readPage tidak boleh lebih besar dari pageCount',
       }).code(400);
-    } else if (readPage > 0) {
-      reading = true;
     }
   } else {
     return h.response({
       status: 'fail',
-      message: 'pageCount atau readPage harus angka!',
+      message: 'pageCount,readPage, dan year harus angka!',
     }).code(400);
   }
   const addBK = {
@@ -107,6 +106,7 @@ const editBookById = ((req, h) => {
   if (typeof (pageCount) === 'number' && typeof (readPage) === 'number' && typeof (year) === 'number') {
     if (pageCount === readPage) {
       finished = true;
+      reading = true;
     } else if (readPage > pageCount) {
       return h.response({
         status: 'fail',
