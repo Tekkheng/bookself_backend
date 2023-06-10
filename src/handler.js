@@ -5,7 +5,7 @@ const { nanoid } = require('nanoid');
 const books = require('./books');
 
 const getAllBook = ((req, h) => {
-  const filterBooks = books.map((book) => ({
+  const Books = books.map((book) => ({
     id: book.id,
     name: book.name,
     publisher: book.publisher,
@@ -13,7 +13,7 @@ const getAllBook = ((req, h) => {
   return h.response({
     status: 'success',
     data: {
-      filterBooks,
+      Books,
     },
   });
 });
