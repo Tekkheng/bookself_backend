@@ -3,18 +3,21 @@
 /* eslint-disable import/newline-after-import */
 const { nanoid } = require('nanoid');
 const databook = require('./databook');
+// const getAllBook = ((req, h) => h.response({
+//   status: 'success',
+//   data: {
+//     databook,
+//   },
+// }).code(200));
 
 const getAllBook = ((req, h) => {
-  databook.forEach((d) => {
-    const books = [d.id, d.name, d.publisher];
-    return h.response({
-      status: 'success',
-      message: 'asdsa',
-      data: {
-        books,
-      },
-    });
-  });
+  const books = databook.forEach((d) => (d.id, d.name, d.publisher));
+  return h.response({
+    status: 'success',
+    data: {
+      books,
+    },
+  }).code(200);
 });
 
 const addBook = ((req, h) => {
