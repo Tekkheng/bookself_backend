@@ -44,8 +44,9 @@ const addBook = ((req, h) => {
       message: 'pageCount atau readPage harus angka!',
     }).code(400);
   }
+  const tipe = typeof (pageCount);
   const addBK = {
-    id, name, year, author, summary, publisher, pageCount, readPage, finished, reading, insertedAt, updatedAt,typeof(pageCount),
+    id, name, year, author, summary, publisher, pageCount, readPage, finished, reading, insertedAt, updatedAt, tipe,
   };
   databook.push(addBK);
   const isSuccess = databook.filter((d) => d.id === id).length > 0;
