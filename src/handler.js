@@ -3,19 +3,13 @@
 /* eslint-disable import/newline-after-import */
 const { nanoid } = require('nanoid');
 const databook = require('./databook');
-// const getAllBook = ((req, h) => h.response({
-//   status: 'success',
-//   data: {
-//     databook,
-//   },
-// }).code(200));
 
 const getAllBook = ((req, h) => {
   const books = databook.filter((d) => (d.id, d.name, d.publisher));
   return h.response({
     status: 'success',
     data: {
-      books,
+      d.id,d.name,d.publisher,
     },
   }).code(200);
 });
