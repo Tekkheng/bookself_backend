@@ -14,7 +14,7 @@ const getAllBook = ((req, h) => {
   const nameBook = books.filter((book) => book.name === name);
 
   if (finished === '1') {
-    const finishedBook = databooks.filter((book) => book.finished === true);
+    const finishedBook = books.filter((book) => book.finished === true);
     return h.response({
       status: 'success',
       data: {
@@ -22,7 +22,7 @@ const getAllBook = ((req, h) => {
       },
     });
   } if (finished === '0') {
-    const finishedBook = databooks.filter((book) => book.finished === false);
+    const finishedBook = books.filter((book) => book.finished === false);
     return h.response({
       status: 'success',
       data: {
@@ -32,7 +32,7 @@ const getAllBook = ((req, h) => {
   }
 
   if (reading === '1') {
-    const readingBook = databooks.filter((book) => book.reading === true);
+    const readingBook = books.filter((book) => book.reading === true);
     return h.response({
       status: 'success',
       data: {
@@ -41,7 +41,7 @@ const getAllBook = ((req, h) => {
     });
   }
   if (reading === '0') {
-    const readingBook = databooks.filter((book) => book.reading === false);
+    const readingBook = books.filter((book) => book.reading === false);
     return h.response({
       status: 'success',
       data: {
