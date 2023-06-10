@@ -10,22 +10,13 @@ const databook = require('./databook');
 //   },
 // }).code(200));
 
-const getAllBook = ((req, h) => {
-  let books;
-  databook.forEach((d) => {
-    books = {
-      id: d.id,
-      name: d.name,
-      publisher: d.publisher,
-    };
-    return books;
-  });
-  return h.response({
-    data: {
-      books,
-    },
-  });
-});
+const books = databook.map((d) => [{ id: d.id, name: d.name, publisher: d.publisher }]);
+const getAllBook = ((req, h) => h.response({
+  status: 'success',
+  data: {
+    books,
+  },
+}));
 
 const addBook = ((req, h) => {
   const {
