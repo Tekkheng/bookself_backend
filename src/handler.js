@@ -97,15 +97,17 @@ const editBookById = ((req, h) => {
       message: 'Gagal memperbarui buku. Mohon isi nama buku',
     }).code(400);
   }
-  if (pageCount === readPage) {
-    finished = true;
-  } else if (readPage > pageCount) {
-    return h.response({
-      status: 'fail',
-      message: 'Gagal memperbarui buku. readPage tidak boleh lebih besar dari pageCount',
-    }).code(400);
-  } else if (readPage > 0) {
-    reading = true;
+  if (typeof (pageCount) || typeof (readPage) !== 'string') {
+    if (pageCount === readPage) {
+      finished = true;
+    } else if (readPage > pageCount) {
+      return h.response({
+        status: 'fail',
+        message: 'Gagal memperbarui buku. readPage tidak boleh lebih besar dari pageCount',
+      }).code(400);
+    } else if (readPage > 0) {
+      reading = true;
+    }
   }
   const index = databook.findIndex((d) => d.id === id);
   if (index !== -1) {
