@@ -112,8 +112,6 @@ const editBookById = ((req, h) => {
         status: 'fail',
         message: 'Gagal memperbarui buku. readPage tidak boleh lebih besar dari pageCount',
       }).code(400);
-    } else if (readPage > 0) {
-      reading = true;
     }
   } else {
     return h.response({
