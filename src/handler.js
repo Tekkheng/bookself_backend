@@ -107,6 +107,11 @@ const editBookById = ((req, h) => {
     } else if (readPage > 0) {
       reading = true;
     }
+  } else {
+    return h.response({
+      status: 'fail',
+      message: 'pageCount atau readPage harus angka!',
+    }).code(400);
   }
   const index = databook.findIndex((d) => d.id === id);
   if (index !== -1) {
