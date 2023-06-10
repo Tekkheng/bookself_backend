@@ -20,7 +20,13 @@ const addBook = ((req, h) => {
 
   let finished = false;
   let reading = false;
-  parseInt(pageCount,readPage);
+
+  if (typeof (pageCount) || typeof (readPage) === String) {
+    return h.response({
+      status: 'fail',
+      message: 'pageCount atau readPage harus angka!',
+    }).code(400);
+  }
   if (pageCount === readPage) {
     finished = true;
   } else if (readPage > pageCount) {
