@@ -6,57 +6,82 @@ const databooks = require('./databooks');
 
 const getAllBook = ((req, h) => {
   const { name, finished, reading } = req.query;
-  const books = databooks.map((book) => ({
-    id: book.id,
-    name: book.name,
-    publisher: book.publisher,
-  }));
-  const nameBook = books.filter((book) => book.name === name);
 
   if (finished === '1') {
-    const finishedBook = books.filter((book) => book.finished === true);
+    const finishedBook = databooks.filter((book) => book.finished === true);
+    const books = finishedBook.map((book) => ({
+      id: book.id,
+      name: book.name,
+      publisher: book.publisher,
+    }));
     return h.response({
       status: 'success',
       data: {
-        finishedBook,
+        books,
       },
     });
   } if (finished === '0') {
-    const finishedBook = books.filter((book) => book.finished === false);
+    const finishedBook = databooks.filter((book) => book.finished === false);
+    const books = finishedBook.map((book) => ({
+      id: book.id,
+      name: book.name,
+      publisher: book.publisher,
+    }));
     return h.response({
       status: 'success',
       data: {
-        finishedBook,
+        books,
       },
     });
   }
 
   if (reading === '1') {
-    const readingBook = books.filter((book) => book.reading === true);
+    const readingBook = databooks.filter((book) => book.reading === true);
+    const books = readingBook.map((book) => ({
+      id: book.id,
+      name: book.name,
+      publisher: book.publisher,
+    }));
     return h.response({
       status: 'success',
       data: {
-        readingBook,
+        books,
       },
     });
   }
   if (reading === '0') {
-    const readingBook = books.filter((book) => book.reading === false);
+    const readingBook = databooks.filter((book) => book.reading === true);
+    const books = readingBook.map((book) => ({
+      id: book.id,
+      name: book.name,
+      publisher: book.publisher,
+    }));
     return h.response({
       status: 'success',
       data: {
-        readingBook,
+        books,
       },
     });
   }
-  if (name) {
+  if (name === 'yes') {
+    const nameBook = databooks.filter((book) => book.name === name);
+    const books = nameBook.map((book) => ({
+      id: book.id,
+      name: book.name,
+      publisher: book.publisher,
+    }));
     return h.response({
       status: 'success',
       data: {
-        nameBook,
+        books,
       },
     });
   }
+  const books = databooks.map((book) => ({
+    id: book.id,
+    name: book.name,
+    publisher: book.publisher,
+  }));
   return h.response({
     status: 'success',
     data: {
