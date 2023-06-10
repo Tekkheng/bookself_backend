@@ -22,7 +22,7 @@ const getAllBook = ((req, h) => {
         finishedBook,
       },
     });
-  } if (reading === 0) {
+  } if (reading === '0') {
     return h.response({
       status: 'success',
       data: {
