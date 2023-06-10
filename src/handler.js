@@ -5,11 +5,21 @@ const { nanoid } = require('nanoid');
 const databooks = require('./databooks');
 
 const getAllBook = ((req, h) => {
+  const { name } = req.query;
   const books = databooks.map((book) => ({
     id: book.id,
     name: book.name,
     publisher: book.publisher,
   }));
+  const bookByName = books.filter((book) => book.name === name);
+  if (bookByName) {
+    return h.response({
+      status: 'success',
+      data: {
+        bookByName,
+      },
+    });
+  }
   return h.response({
     status: 'success',
     data: {
@@ -27,7 +37,7 @@ const addBook = ((req, h) => {
   const id = nanoid(5);
 
   let finished = false;
-  let reading = false;
+  const reading = false;
 
   if (name === undefined) {
     return h.response({
@@ -38,7 +48,6 @@ const addBook = ((req, h) => {
   if (typeof (pageCount) === 'number' && typeof (readPage) === 'number' && typeof (year) === 'number') {
     if (pageCount === readPage) {
       finished = true;
-      reading = true;
     } else if (readPage > pageCount) {
       return h.response({
         status: 'fail',
@@ -95,7 +104,7 @@ const editBookById = ((req, h) => {
   } = req.payload;
   const updatedAt = new Date().toISOString();
   let finished = false;
-  let reading = false;
+  const reading = false;
 
   if (name === undefined) {
     return h.response({
@@ -106,7 +115,6 @@ const editBookById = ((req, h) => {
   if (typeof (pageCount) === 'number' && typeof (readPage) === 'number' && typeof (year) === 'number') {
     if (pageCount === readPage) {
       finished = true;
-      reading = true;
     } else if (readPage > pageCount) {
       return h.response({
         status: 'fail',
