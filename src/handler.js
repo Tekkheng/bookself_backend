@@ -11,17 +11,19 @@ const databook = require('./databook');
 // }).code(200));
 
 const getAllBook = ((req, h) => {
+  let books;
   databook.forEach((d) => {
-    const books = {
+    books = {
       id: d.id,
       name: d.name,
       publisher: d.publisher,
     };
-    return h.response({
-      data: {
-        books,
-      },
-    });
+    return books;
+  });
+  return h.response({
+    data: {
+      books,
+    },
   });
 });
 
