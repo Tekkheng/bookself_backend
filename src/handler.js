@@ -35,7 +35,7 @@ const addBook = ((req, h) => {
       message: 'Gagal menambahkan buku. Mohon isi nama buku',
     }).code(400);
   }
-  if (typeof (pageCount) === 'number' && typeof (readPage) === 'number') {
+  if (typeof (pageCount) === 'number' && typeof (readPage) === 'number' && typeof (year) === 'number') {
     if (pageCount === readPage) {
       finished = true;
     } else if (readPage > pageCount) {
@@ -104,7 +104,7 @@ const editBookById = ((req, h) => {
       message: 'Gagal memperbarui buku. Mohon isi nama buku',
     }).code(400);
   }
-  if (typeof (pageCount) === 'number' && typeof (readPage) === 'number') {
+  if (typeof (pageCount) === 'number' && typeof (readPage) === 'number' && typeof (year) === 'number') {
     if (pageCount === readPage) {
       finished = true;
     } else if (readPage > pageCount) {
@@ -118,7 +118,7 @@ const editBookById = ((req, h) => {
   } else {
     return h.response({
       status: 'fail',
-      message: 'pageCount atau readPage harus angka!',
+      message: 'pageCount,readPage, dan year harus angka!',
     }).code(400);
   }
   const index = databooks.findIndex((d) => d.id === id);
