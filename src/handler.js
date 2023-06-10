@@ -11,19 +11,11 @@ const getAllBook = ((req, h) => {
     name: book.name,
     publisher: book.publisher,
   }));
-  const bookByName = books.filter((book) => book.name === name);
-  if (bookByName === name) {
-    return h.response({
-      status: 'success',
-      data: {
-        bookByName, name,
-      },
-    });
-  }
+
   return h.response({
     status: 'success',
     data: {
-      books,
+      books, name,
     },
   });
 });
