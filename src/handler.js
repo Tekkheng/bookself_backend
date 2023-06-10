@@ -27,7 +27,7 @@ const addBook = ((req, h) => {
       message: 'Gagal menambahkan buku. Mohon isi nama buku',
     }).code(400);
   }
-  if (Number.isInteger(readPage, pageCount)) {
+  if (typeof(pageCount) === 'number') {
     if (pageCount === readPage) {
       finished = true;
     } else if (readPage > pageCount) {
