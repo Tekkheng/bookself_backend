@@ -16,7 +16,7 @@ const getAllBook = ((req, h) => {
     return h.response({
       status: 'success',
       data: {
-        bookByName,
+        bookByName, name,
       },
     });
   }
