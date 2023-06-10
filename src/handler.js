@@ -46,7 +46,7 @@ const addBook = ((req, h) => {
   if (isSuccess) {
     return h.response({
       status: 'success',
-      message: 'data buku berhasil ditambahkan!',
+      message: 'Buku berhasil ditambahkan',
       data: {
         bookId: id,
       },
@@ -54,7 +54,7 @@ const addBook = ((req, h) => {
   }
   return h.response({
     status: 'failed',
-    message: 'data buku gagal ditambahkan!',
+    message: 'Buku gagal ditambahkan',
   }).code(500);
 });
 
@@ -70,8 +70,8 @@ const getBookById = ((req, h) => {
     }).code(200);
   }
   return h.response({
-    status: 'failed',
-    message: 'gagal, id tidak ditemukan!',
+    status: 'fail',
+    message: 'Buku tidak ditemukan',
   }).code(404);
 });
 
@@ -87,7 +87,7 @@ const editBookById = ((req, h) => {
   if (name === '') {
     return h.response({
       status: 'fail',
-      message: 'Gagal edit buku. Mohon isi nama buku',
+      message: 'Gagal memperbarui buku. Mohon isi nama buku',
     }).code(400);
   }
   if (pageCount === readPage) {
@@ -95,7 +95,7 @@ const editBookById = ((req, h) => {
   } else if (readPage > pageCount) {
     return h.response({
       status: 'fail',
-      message: 'Gagal edit buku. Mohon isi nama buku',
+      message: 'Gagal memperbarui buku. readPage tidak boleh lebih besar dari pageCount',
     }).code(400);
   } else if (readPage > 0) {
     reading = true;
@@ -107,12 +107,12 @@ const editBookById = ((req, h) => {
     };
     return h.response({
       status: 'success',
-      message: `data book pada id=${id}, berhasil di edit!`,
+      message: 'Buku berhasil diperbarui',
     }).code(200);
   }
   return h.response({
-    status: 'failed',
-    message: 'gagal edit, id tidak ditemukan!',
+    status: 'fail',
+    message: 'Gagal memperbarui buku. Id tidak ditemukan',
   }).code(404);
 });
 
@@ -123,12 +123,12 @@ const deleteBookById = ((req, h) => {
     databook.splice(index, 1);
     return h.response({
       status: 'success',
-      message: `data book pada id=${id}, berhasil di hapus!`,
+      message: 'Buku berhasil dihapus',
     }).code(200);
   }
   return h.response({
-    status: 'failed',
-    message: 'gagal hapus, id tidak ditemukan!',
+    status: 'fail',
+    message: 'Buku gagal dihapus. Id tidak ditemukan',
   }).code(404);
 });
 
