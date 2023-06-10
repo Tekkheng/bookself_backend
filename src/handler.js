@@ -11,11 +11,18 @@ const getAllBook = ((req, h) => {
     name: book.name,
     publisher: book.publisher,
   }));
-  const finishedBook = databooks.filter((book) => book.finished === true);
-  const readingBook = databooks.filter((book) => book.reading === false);
   const nameBook = books.filter((book) => book.name === name);
 
-  if (finished === '0') {
+  if (finished === '1') {
+    const finishedBook = databooks.filter((book) => book.finished === true);
+    return h.response({
+      status: 'success',
+      data: {
+        finishedBook,
+      },
+    });
+  } if (finished === '0') {
+    const finishedBook = databooks.filter((book) => book.finished === false);
     return h.response({
       status: 'success',
       data: {
@@ -23,7 +30,18 @@ const getAllBook = ((req, h) => {
       },
     });
   }
+
+  if (reading === '1') {
+    const readingBook = databooks.filter((book) => book.reading === true);
+    return h.response({
+      status: 'success',
+      data: {
+        readingBook,
+      },
+    });
+  }
   if (reading === '0') {
+    const readingBook = databooks.filter((book) => book.reading === false);
     return h.response({
       status: 'success',
       data: {
