@@ -5,29 +5,46 @@ const { nanoid } = require('nanoid');
 const databooks = require('./databooks');
 
 const getAllBook = ((req, h) => {
-  const { name } = req.query;
+  const { name, finished, reading } = req.query;
   const books = databooks.map((book) => ({
     id: book.id,
     name: book.name,
     publisher: book.publisher,
   }));
+  const finishedBook = databooks.filter((book) => book.finished === true);
+  const readingBook = databooks.filter((book) => book.reading === true);
 
-  const filterBook = books.filter((book) => book.name === name);
-  if (name) {
+  if (finished === 0) {
     return h.response({
       status: 'success',
       data: {
-        filterBook,
+        finishedBook,
+      },
+    });
+  } if (reading === 0) {
+    return h.response({
+      status: 'success',
+      data: {
+        readingBook,
       },
     });
   }
-
   return h.response({
     status: 'success',
     data: {
-      books, name,
+      books,
     },
   });
+
+  //   const filterBook = books.filter((book) => book.name === name);
+  //   if (name) {
+  //     return h.response({
+  //       status: 'success',
+  //       data: {
+  //         filterBook,
+  //       },
+  //     });
+  //   }
 });
 
 const addBook = ((req, h) => {
