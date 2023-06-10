@@ -3,12 +3,22 @@
 /* eslint-disable import/newline-after-import */
 const { nanoid } = require('nanoid');
 const databook = require('./databook');
-const getAllBook = ((req, h) => h.response({
-  status: 'success',
-  data: {
-    databook,
-  },
-}).code(200));
+// const getAllBook = ((req, h) => h.response({
+//   status: 'success',
+//   data: {
+//     databook,
+//   },
+// }).code(200));
+
+const getAllBook = ((req, h) => {
+  const books = databook.filter((d) => (d.id, d.name, d.publisher));
+  return h.response({
+    status: 'success',
+    data: {
+      books,
+    },
+  }).code(200);
+});
 
 const addBook = ((req, h) => {
   const {
@@ -21,7 +31,7 @@ const addBook = ((req, h) => {
   let finished = false;
   let reading = false;
 
-  if (name === '') {
+  if (name === undefined) {
     return h.response({
       status: 'fail',
       message: 'Gagal menambahkan buku. Mohon isi nama buku',
@@ -90,7 +100,7 @@ const editBookById = ((req, h) => {
   let finished = false;
   let reading = false;
 
-  if (name === '') {
+  if (name === undefined) {
     return h.response({
       status: 'fail',
       message: 'Gagal memperbarui buku. Mohon isi nama buku',
