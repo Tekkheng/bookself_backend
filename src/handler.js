@@ -20,7 +20,7 @@ const addBook = ((req, h) => {
 
   let finished = false;
   let reading = false;
-
+  parseInt(pageCount,readPage);
   if (pageCount === readPage) {
     finished = true;
   } else if (readPage > pageCount) {
@@ -28,7 +28,7 @@ const addBook = ((req, h) => {
       status: 'fail',
       message: 'Gagal menambahkan buku. readPage tidak boleh lebih besar dari pageCount',
     }).code(400);
-  } else if (readPage > '0') {
+  } else if (readPage > 0) {
     reading = true;
   }
 
