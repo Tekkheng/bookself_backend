@@ -28,7 +28,7 @@ const getAllBook = ((req, h) => {
       },
     ];
   });
-  h.response({
+  return h.response({
     status: 'success',
     data: {
       books,
