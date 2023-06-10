@@ -5,16 +5,16 @@ const { nanoid } = require('nanoid');
 const databook = require('./databook');
 
 const getAllBook = ((req, h) => {
-    databook.forEach((d)=>{
-        const books = [d.id,d.name,d.publisher],
-    });
+  databook.forEach((d) => {
+    const books = [d.id, d.name, d.publisher];
     return h.response({
-        status: 'success',
-        message: 'berhasil',
-        data:{
-            books,
-        }
-    })
+      status: 'success',
+      message: 'asdsa',
+      data: {
+        books,
+      },
+    });
+  });
 });
 
 const addBook = ((req, h) => {
