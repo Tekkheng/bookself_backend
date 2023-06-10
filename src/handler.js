@@ -21,26 +21,27 @@ const addBook = ((req, h) => {
   let finished = false;
   let reading = false;
 
-  if (typeof (pageCount) || typeof (readPage) == 'string') {
-    return h.response({
-      status: 'fail',
-      message: 'pageCount atau readPage harus angka!',
-    }).code(400);
-  } if (pageCount === readPage) {
-    finished = true;
-  } else if (readPage > pageCount) {
-    return h.response({
-      status: 'fail',
-      message: 'Gagal menambahkan buku. readPage tidak boleh lebih besar dari pageCount',
-    }).code(400);
-  } else if (readPage > 0) {
-    reading = true;
-  }
-
   if (name === '') {
     return h.response({
       status: 'fail',
       message: 'Gagal menambahkan buku. Mohon isi nama buku',
+    }).code(400);
+  }
+  if (typeof (pageCount) || typeof (readPage) !== 'string') {
+    if (pageCount === readPage) {
+      finished = true;
+    } else if (readPage > pageCount) {
+      return h.response({
+        status: 'fail',
+        message: 'Gagal menambahkan buku. readPage tidak boleh lebih besar dari pageCount',
+      }).code(400);
+    } else if (readPage > 0) {
+      reading = true;
+    }
+  } else {
+    return h.response({
+      status: 'fail',
+      message: 'pageCount atau readPage harus angka!',
     }).code(400);
   }
   const addBK = {
