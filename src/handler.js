@@ -27,7 +27,7 @@ const addBook = ((req, h) => {
       message: 'Gagal menambahkan buku. Mohon isi nama buku',
     }).code(400);
   }
-  if (typeof(pageCount) === 'number') {
+  if (typeof (pageCount) === 'number' || typeof (readPage === 'number')) {
     if (pageCount === readPage) {
       finished = true;
     } else if (readPage > pageCount) {
@@ -96,7 +96,7 @@ const editBookById = ((req, h) => {
       message: 'Gagal memperbarui buku. Mohon isi nama buku',
     }).code(400);
   }
-  if (typeof (pageCount) || typeof (readPage) !== 'string') {
+  if (typeof (pageCount) === 'number' || typeof (readPage === 'number')) {
     if (pageCount === readPage) {
       finished = true;
     } else if (readPage > pageCount) {
